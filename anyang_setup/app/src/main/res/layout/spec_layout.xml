@@ -1,0 +1,265 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- 스펙 양식 템플릿 추가 버튼 -->
+    <Button
+        android:id="@+id/addTemplateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="스펙 양식 템플릿 추가"
+        android:layout_gravity="center"
+         />
+
+    <!-- 자격증 테이블 -->
+    <TableLayout
+        android:id="@+id/certificationTable"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:stretchColumns="10"
+        android:layout_margin="20dp"
+        >
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- 자격증 목록 텍스트 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="7dp"
+                android:text="자격증"
+                android:layout_gravity="center"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <!-- + 버튼 -->
+
+        </TableRow>
+
+        <!-- 텍스트뷰 추가 -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="136dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+
+                android:text="새로운 텍스트"
+                android:textSize="18dp" />
+
+            <!-- 필요한 만큼 더 텍스트뷰를 추가 -->
+
+        </TableRow>
+
+        <Button
+            android:id="@+id/addCertificationButton"
+            android:layout_width="53dp"
+            android:layout_height="wrap_content"
+            android:onClick="addCertificationRow"
+            android:text="+" />
+
+
+        <!-- 테이블 내용은 동적으로 추가됩니다. -->
+    </TableLayout>
+
+
+
+
+
+
+
+    <!-- 대외활동 목록 테이블 -->
+    <TableLayout
+        android:id="@+id/external_activitiesTable"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="250dp"
+        android:layout_marginTop="-120dp"
+        android:stretchColumns="10"
+        >
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- 자격증 목록 텍스트 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="7dp"
+                android:text="대외활동"
+                android:layout_gravity="center"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <!-- + 버튼 -->
+
+        </TableRow>
+
+        <!-- 텍스트뷰 추가 -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="136dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+
+                android:text="새로운 텍스트"
+                android:textSize="18dp" />
+
+            <!-- 필요한 만큼 더 텍스트뷰를 추가 -->
+
+        </TableRow>
+
+        <Button
+            android:id="@+id/external_activitiesButton"
+            android:layout_width="53dp"
+            android:layout_height="wrap_content"
+            android:onClick="addCertificationRow"
+            android:text="+" />
+
+
+        <!-- 테이블 내용은 동적으로 추가됩니다. -->
+    </TableLayout>
+
+
+
+
+
+
+    <!-- 포트폴리오 목록 테이블 -->
+    <TableLayout
+        android:id="@+id/portfolioTable"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:stretchColumns="10"
+        android:layout_margin="20dp"
+        >
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- 자격증 목록 텍스트 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="7dp"
+                android:text="포트폴리오"
+                android:layout_gravity="center"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <!-- + 버튼 -->
+
+        </TableRow>
+
+        <!-- 텍스트뷰 추가 -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="136dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+
+                android:text="새로운 텍스트"
+                android:textSize="18dp" />
+
+            <!-- 필요한 만큼 더 텍스트뷰를 추가 -->
+
+        </TableRow>
+
+        <Button
+            android:id="@+id/addportfolioButton"
+            android:layout_width="53dp"
+            android:layout_height="wrap_content"
+            android:onClick="addCertificationRow"
+            android:text="+" />
+
+
+        <!-- 테이블 내용은 동적으로 추가-->
+    </TableLayout>
+
+
+
+
+
+    <!-- 수상 목록 테이블-->
+
+    <TableLayout
+        android:id="@+id/AwardsTable"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="250dp"
+        android:layout_marginTop="-120dp"
+        android:stretchColumns="10"
+        >
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- 자격증 목록 텍스트 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="7dp"
+                android:text="수상내역"
+                android:layout_gravity="center"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <!-- + 버튼 -->
+
+        </TableRow>
+
+        <!-- 텍스트뷰 추가 -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="136dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+
+                android:text="새로운 텍스트"
+                android:textSize="18dp" />
+
+            <!-- 필요한 만큼 더 텍스트뷰를 추가 -->
+
+        </TableRow>
+
+        <Button
+            android:id="@+id/AwardsButton"
+            android:layout_width="53dp"
+            android:layout_height="wrap_content"
+            android:onClick="addCertificationRow"
+            android:text="+" />
+
+
+        <!-- 테이블 내용은 동적으로 추가됩니다. -->
+    </TableLayout>
+
+
+
+
+
+
+
+
+
+</LinearLayout>

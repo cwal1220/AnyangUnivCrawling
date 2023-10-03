@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.anyang_setup">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="AYSetup"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Anyang_setup"
+        android:usesCleartextTraffic="true"><!-- 보안 쓰래기 만들기 코드 -->
+
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".StartActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DiagnosisActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PersonalMainActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".PersonalWriteActivity" />
+        <activity android:name=".PersonalGptActivity" />
+        <activity android:name=".PersonalLockerActivity" />
+        <activity android:name=".SpecActivity" />
+        <activity android:name=".CertificateActivity" />
+        <activity android:name=".ExternalActivitiesActivity" />
+        <activity android:name=".AwardsActivity" />
+    </application>
+
+</manifest>
