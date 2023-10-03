@@ -1,0 +1,17 @@
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo apt install ./google-chrome-stable_current_amd64.deb
+
+
+google-chrome --version
+# Google Chrome 117.0.5938.132
+wget https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/117.0.5938.132/linux64/chromedriver-linux64.zip
+
+sudo apt install language-pack-ko
+sudo locale-gen ko_KR.UTF-8
+sudo apt-get install libfontenc1 xfonts-encodings xfonts-utils xfonts-base xfonts-75dpi
+sudo apt-get install fonts-nanum fonts-nanum-coding fonts-nanum-extra
+
+
+# 가상 디스플레이 환경 구성하기
+pip3 install xlrd pyvirtualdisplay 
+sudo apt-get install xvfb 
