@@ -3,11 +3,16 @@ package com.example.anyang_setup;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.webkit.WebView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.navigation.NavigationBarView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
     SettingFragment settingFragment;
     SpecFragment specFragment;
 
-
     public static WebView myWebView;
 
     @Override
@@ -27,11 +31,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
-
         homeFragment = new HomeFragment();
         infoFragment = new InfoFragment();
         settingFragment = new SettingFragment();
         specFragment = new SpecFragment();
+
+        String userinfo = getIntent().getStringExtra("userinfo");
+        homeFragment.setStduentInfo(userinfo);
+
 
         getSupportFragmentManager().beginTransaction().replace(R.id.containers, homeFragment).commit();
 

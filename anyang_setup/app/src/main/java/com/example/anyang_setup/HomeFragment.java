@@ -3,6 +3,7 @@ package com.example.anyang_setup;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +14,12 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class HomeFragment extends Fragment {
 
@@ -24,7 +29,8 @@ public class HomeFragment extends Fragment {
     private String mParam2;
     private ScrollView scrollView;
     private Button button;
-
+    private TextView getScoreText, remainScoreText, majorScoreText, generalScoreText;
+    private String userInfoStr;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -36,6 +42,11 @@ public class HomeFragment extends Fragment {
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    public void setStduentInfo(String userinfo)
+    {
+        this.userInfoStr = userinfo;
     }
 
     @Override
@@ -53,6 +64,10 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         scrollView = view.findViewById(R.id.scrollView_home);
         button = view.findViewById(R.id.diagnosis);
+        getScoreText = view.findViewById(R.id.Earned_Credits);
+        remainScoreText = view.findViewById(R.id.Remaining_Credits);
+        majorScoreText = view.findViewById(R.id.major_Credits);
+        generalScoreText = view.findViewById(R.id.Liberal_Arts_Credits);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,9 +120,21 @@ public class HomeFragment extends Fragment {
 
             }
         });
-
-
+        
         webView.loadUrl("https://tis.anyang.ac.kr/main.do");
+
+
+        try {
+            JSONObject jsonObject = new JSONObject(userInfoStr);
+            JSONObject creditStatus = jsonObject.getJSONObject("data").getJSONObject("creditStatus");
+            Log.d("Telechips@@@@@@@", creditStatus.toString());
+            getScoreText.setText(Integer.toString(creditStatus.getInt("total_current")));
+            remainScoreText.setText(Integer.toString(creditStatus.getInt("total_remain")));
+            majorScoreText.setText(Integer.toString(creditStatus.getInt("major_current")));
+            generalScoreText.setText(Integer.toString(creditStatus.getInt("general_current")));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         return view;
     }
