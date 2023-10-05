@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -13,28 +16,6 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
-            <WebView
-                android:id="@+id/webview_diagnosis_2"
-                android:layout_width="390dp"
-                android:layout_height="390dp"
-                android:layout_marginTop="10dp" />
-
-            <TextView
-                android:id="@+id/Explanation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="상단에 표시된 인트라넷에서 \n 졸업 -> 졸업자가진단까지 눌러주시고\n하단의 진단버튼을 눌러주세요 \n앱에서 졸업자가진단을 분석하여 해설해드립니다"
-                android:textAlignment="center"
-                android:textSize="12dp" />
-
-            <TextView
-                android:id="@+id/python_result_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Python Result"
-                android:layout_marginTop="16dp"/>
-
 
             <Button
                 android:id="@+id/Update_button_2"
@@ -43,511 +24,253 @@
                 android:layout_marginTop="10dp"
                 android:text="진단" />
 
-
-            <RelativeLayout
-                android:id="@+id/General_Education_Requirement_Layout"
-                android:layout_width="390dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="90dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
+                android:layout_margin="10dp"
+                android:orientation="horizontal"
+                android:gravity="center"
                 android:background="@drawable/shape_corners">
 
                 <TextView
-                    android:id="@+id/General_Education_Requirement"
+                    android:id="@+id/totalCurrentText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
                     android:gravity="center"
-                    android:text="교양필수"
+                    android:layout_margin="30dp"
+                    android:text="취득학점"
                     android:textSize="17dp" />
 
-            </RelativeLayout>
-
-
-            <RelativeLayout
-                android:id="@+id/General_Elective_Layout"
-                android:layout_width="390dp"
-                android:layout_height="90dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/shape_corners">
-
-                <TextView
-                    android:id="@+id/General_Elective"
+                <Space
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:gravity="center"
-                    android:text="교양선택"
-                    android:textSize="17dp" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/Free_Choice_Layout"
-                android:layout_width="390dp"
-                android:layout_height="90dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/shape_corners">
+                    android:layout_weight="1" />
 
                 <TextView
-                    android:id="@+id/Free_Choice"
+                    android:id="@+id/graduateBaseText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
                     android:gravity="center"
-                    android:text="자유선택"
-                    android:textSize="17dp" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/Major_Layout"
-                android:layout_width="390dp"
-                android:layout_height="90dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/shape_corners">
-
-                <TextView
-                    android:id="@+id/Major"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:gravity="center"
-                    android:text="주전공"
-                    android:textSize="17dp" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/Double_Major_Layout"
-                android:layout_width="390dp"
-                android:layout_height="90dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/shape_corners">
-
-
-                <TextView
-                    android:id="@+id/Double_Major"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:gravity="center"
-                    android:text="복수전공"
-                    android:textSize="17dp" />
-
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/Linked_Major_Layout"
-                android:layout_width="390dp"
-                android:layout_height="90dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/shape_corners">
-
-
-                <TextView
-                    android:id="@+id/Linked_Major"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:gravity="center"
-                    android:text="연계전공"
-                    android:textSize="17dp" />
-
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/Minor_Layout"
-                android:layout_width="390dp"
-                android:layout_height="90dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/shape_corners">
-
-
-                <TextView
-                    android:id="@+id/Minor"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:gravity="center"
-                    android:text="부전공"
-                    android:textSize="17dp" />
-
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/Multi_Major_Layout"
-                android:layout_width="390dp"
-                android:layout_height="90dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/shape_corners">
-
-
-                <TextView
-                    android:id="@+id/Multi_Major"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:gravity="center"
-                    android:text="다전공"
-                    android:textSize="17dp" />
-
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/Self_Design_Layout"
-                android:layout_width="390dp"
-                android:layout_height="90dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/shape_corners">
-
-
-                <TextView
-                    android:id="@+id/Self_Design"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:gravity="center"
-                    android:text="자기설계"
-                    android:textSize="17dp" />
-
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/Teaching_Profession_Layout"
-                android:layout_width="390dp"
-                android:layout_height="90dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/shape_corners">
-
-
-                <TextView
-                    android:id="@+id/Teaching_Profession"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:gravity="center"
-                    android:text="교직"
-                    android:textSize="17dp" />
-
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/Chapel_Layout"
-                android:layout_width="390dp"
-                android:layout_height="90dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/shape_corners">
-
-
-                <TextView
-                    android:id="@+id/Chapel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:gravity="center"
-                    android:text="채플"
-                    android:textSize="17dp" />
-
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/Graduation_Credit_Layout"
-                android:layout_width="390dp"
-                android:layout_height="90dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/shape_corners">
-
-
-                <TextView
-                    android:id="@+id/Graduation_Credit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:gravity="center"
+                    android:layout_margin="30dp"
                     android:text="졸업학점"
                     android:textSize="17dp" />
+            </LinearLayout>
 
-
-            </RelativeLayout>
-
-            <TableLayout
-                android:id="@+id/tableLayout"
-                android:layout_width="390dp"
+            <TextView
+                android:id="@+id/totalRemainText"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="-50dp"
+                android:gravity="center"
+                android:text="현재 9 학점이 부족합니다."
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/General_Education_Requirement4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="-50dp"
+                android:gravity="center"
+                android:text="--학년 평균 취득 학점은 --입니다."
+                android:textSize="17dp" />
+
+            <LinearLayout
+                android:id="@+id/General_Education_Requirement_Layout2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:background="@drawable/shape_corners">
+                <ScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                <TableLayout
+                    android:id="@+id/requiredSubjectsTable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:stretchColumns="*">
+                    <TableRow>
+                        <TextView
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="구분"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="과목번호"
+                            android:textStyle="bold"/>
+                        <TextView
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="과목명"
+                            android:textStyle="bold"/>
+                        <TextView
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="이수여부"
+                            android:textStyle="bold"/>
+                    </TableRow>
+
+                </TableLayout>
+                </ScrollView>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/General_Education_Requirement5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="-50dp"
+                android:gravity="center"
+                android:text="-- 과목을 이수 하셔야 합니다."
+                android:textSize="17dp" />
+
+            <LinearLayout
+                android:id="@+id/General_Education_Requirement_Layout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:background="@drawable/shape_corners">
+
+                <TableLayout
+                android:id="@+id/abilitySubjectsTable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:stretchColumns="*">
-
                 <TableRow>
-
                     <TextView
                         android:gravity="center"
                         android:padding="8dp"
-                        android:text="구분"
+                        android:text="의사소통"
                         android:textStyle="bold" />
-
                     <TextView
                         android:gravity="center"
                         android:padding="8dp"
-                        android:text="기준학기 수"
+                        android:text="글로벌"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="문제해결"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="인성영성"
                         android:textStyle="bold" />
-
                     <TextView
                         android:gravity="center"
                         android:padding="8dp"
-                        android:text="등록/이수학기 수"
+                        android:text="리더십"
                         android:textStyle="bold" />
-
-                </TableRow>
-
-                <TableRow>
-
                     <TextView
                         android:gravity="center"
                         android:padding="8dp"
-                        android:text="등록" />
-
-                    <TextView
-                        android:id="@+id/t1"
-                        android:gravity="center"
-                        android:padding="8dp" />
-
-                    <TextView
-                        android:id="@+id/t2"
-                        android:gravity="center"
-                        android:padding="8dp" />
-                </TableRow>
-
-                <TableRow>
-
-                    <TextView
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:text="채플이수" />
-
-                    <TextView
-                        android:id="@+id/t3"
-                        android:gravity="center"
-                        android:padding="8dp" />
-
-                    <TextView
-                        android:id="@+id/t4"
-                        android:gravity="center"
-                        android:padding="8dp" />
+                        android:text="융합실무"
+                        android:textStyle="bold" />
                 </TableRow>
             </TableLayout>
+            </LinearLayout>
 
-
-            <TableLayout
-                android:id="@+id/tableLayout2"
-                android:layout_width="390dp"
+            <TextView
+                android:id="@+id/General_Education_Requirement8"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="-50dp"
+                android:gravity="center"
+                android:text="-- 역량이 부족합니다!
+                \n 교양의 역량을 확인하고 신청하세요!"
+                android:textSize="17dp" />
+
+            <LinearLayout
+                android:id="@+id/General_Education_Requirement_Layout5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:background="@drawable/shape_corners">
+
+                <TableLayout
+                    android:id="@+id/chapelTable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="*">
+                    <TableRow>
+                        <TextView
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="구분"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="기준학기 수"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="등록/이수학기 수"
+                            android:textStyle="bold" />
+                    </TableRow>
+                </TableLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/General_Education_Requirement9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="-50dp"
+                android:gravity="center"
+                android:text="--번 채플을 더 수강하셔야 합니다."
+                android:textSize="17dp" />
+
+            <LinearLayout
+                android:id="@+id/General_Education_Requirement_Layout6"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_margin="10dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:background="@drawable/shape_corners">
+
+                <TextView
+                    android:id="@+id/graduateResultText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center"
+                    android:text="졸업 인증(졸업 작품)/ (ex 미통과)"
+                    android:textSize="17dp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/General_Education_Requirement11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="-50dp"
+                android:gravity="center"
+                android:text=""
+                android:textSize="17dp" />
+
+            <Button
+                android:id="@+id/finalDiagnosisButton"
+                android:layout_width="110dp"
+                android:layout_height="70dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp"
-                android:stretchColumns="*">
-
-                <TableRow>
-
-                    <TextView
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:text="구분"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:text="과목명"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:text="이수여부"
-                        android:textStyle="bold"/>
-
-
-                </TableRow>
-
-                <TableRow>
-
-                    <TextView
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:text="교양필수" />
-
-                    <TextView
-                        android:id="@+id/General_Education_Requirement1_name"
-                        android:gravity="center"
-                        android:padding="8dp" />
-
-                    <TextView
-                        android:id="@+id/General_Education_Requirement1_status"
-                        android:gravity="center"
-                        android:padding="8dp" />
-
-
-                </TableRow>
-
-                <TableRow>
-
-                    <TextView
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:text="교양필수" />
-
-                    <TextView
-                        android:id="@+id/General_Education_Requirement2_name"
-                        android:gravity="center"
-                        android:padding="8dp" />
-
-                    <TextView
-                        android:id="@+id/General_Education_Requirement2_status"
-                        android:gravity="center"
-                        android:padding="8dp" />
-
-
-                </TableRow>
-
-                <TableRow>
-
-                    <TextView
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:text="교양필수" />
-
-                    <TextView
-                        android:id="@+id/General_Education_Requirement3_name"
-                        android:gravity="center"
-                        android:padding="8dp" />
-
-                    <TextView
-                        android:id="@+id/General_Education_Requirement3_status"
-                        android:gravity="center"
-                        android:padding="8dp" />
-
-
-                </TableRow>
-
-                <TableRow>
-
-                    <TextView
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:text="교양필수" />
-
-                    <TextView
-                        android:id="@+id/General_Education_Requirement4_name"
-                        android:gravity="center"
-                        android:padding="8dp" />
-
-                    <TextView
-                        android:id="@+id/General_Education_Requirement4_status"
-                        android:gravity="center"
-                        android:padding="8dp" />
-
-
-                </TableRow>
-
-                <TableRow>
-
-                    <TextView
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:text="교양필수" />
-
-                    <TextView
-                        android:id="@+id/General_Education_Requirement5_name"
-                        android:gravity="center"
-                        android:padding="8dp" />
-
-                    <TextView
-                        android:id="@+id/General_Education_Requirement5_status"
-                        android:gravity="center"
-                        android:padding="8dp" />
-
-
-                </TableRow>
-
-                <TableRow>
-
-                    <TextView
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:text="교양필수" />
-
-                    <TextView
-                        android:id="@+id/General_Education_Requirement6_name"
-                        android:gravity="center"
-                        android:padding="8dp" />
-
-                    <TextView
-                        android:id="@+id/General_Education_Requirement6_status"
-                        android:gravity="center"
-                        android:padding="8dp" />
-
-
-                </TableRow>
-
-                <TableRow>
-
-                    <TextView
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:text="교양필수" />
-
-                    <TextView
-                        android:id="@+id/General_Education_Requirement7_name"
-                        android:gravity="center"
-                        android:padding="8dp" />
-
-                    <TextView
-                        android:id="@+id/General_Education_Requirement7_status"
-                        android:gravity="center"
-                        android:padding="8dp" />
-
-
-                </TableRow>
-
-
-            </TableLayout>
-
+                android:text="최종진단" />
 
         </LinearLayout>
-
-
     </ScrollView>
-
-
-</RelativeLayout>
+</LinearLayout>

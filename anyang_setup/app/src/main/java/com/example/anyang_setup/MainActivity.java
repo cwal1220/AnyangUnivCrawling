@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         String userinfo = getIntent().getStringExtra("userinfo");
         homeFragment.setStduentInfo(userinfo);
+        infoFragment.setStduentInfo(userinfo);
 
 
         getSupportFragmentManager().beginTransaction().replace(R.id.containers, homeFragment).commit();

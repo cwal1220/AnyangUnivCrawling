@@ -56,7 +56,6 @@ public class DiagnosisRequest extends AsyncTask<Void, Void, String> {
             String 교양필수 = jsonObject.getString("General_education_required");
             String 교양선택 = jsonObject.getString("Liberal_Arts_Options");
 
-            activity.setDataFromServer(교양필수, 교양선택);
         } catch (JSONException e) {
             Log.e(TAG, "JSON 파싱 오류: " + e.getMessage());
         }

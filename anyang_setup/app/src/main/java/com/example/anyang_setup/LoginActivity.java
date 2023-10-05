@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(LoginActivity.this, "로그인 실패1", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -88,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(LoginActivity.this, "로그인 실패2", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "서버 응답시간 초과", Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
                     }
                 });
@@ -98,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressDialog = ProgressDialog.show(LoginActivity.this, "Loading", "로그인 중...");
+                progressDialog = ProgressDialog.show(LoginActivity.this, "Loading", "로그인 중...\n최장 1분정도 소요됩니다.");
                 JSONObject jsonObject = new JSONObject();
                 try {
                     jsonObject.put("id", mUsernameEditText.getText().toString()); // 2019U1132
@@ -107,9 +107,9 @@ public class LoginActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 OkHttpClient client = new OkHttpClient.Builder()
-                        .connectTimeout(40, TimeUnit.MINUTES)
-                        .readTimeout(40, TimeUnit.SECONDS)
-                        .writeTimeout(40, TimeUnit.SECONDS)
+                        .connectTimeout(60, TimeUnit.MINUTES)
+                        .readTimeout(60, TimeUnit.SECONDS)
+                        .writeTimeout(60, TimeUnit.SECONDS)
                         .build();
 
                 RequestBody requestBody = RequestBody.create(

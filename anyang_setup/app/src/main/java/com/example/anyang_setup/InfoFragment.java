@@ -15,6 +15,9 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link InfoFragment#newInstance} factory method to
@@ -32,6 +35,7 @@ public class InfoFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private TextView majorname;
+    private String userInfoStr;
 
     //이미지용 변수선언
     ScrollView scrollView;
@@ -91,8 +95,12 @@ public class InfoFragment extends Fragment {
                 //아무런 동작도 하지 않음
             }
         });
-
         return view;
+    }
+
+    public void setStduentInfo(String userinfo)
+    {
+        this.userInfoStr = userinfo;
     }
 
 

@@ -72,6 +72,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), DiagnosisActivity.class);
+                intent.putExtra("userinfo", userInfoStr);
                 startActivity(intent);
             }
         });
@@ -120,14 +121,13 @@ public class HomeFragment extends Fragment {
 
             }
         });
-        
+
         webView.loadUrl("https://tis.anyang.ac.kr/main.do");
 
 
         try {
             JSONObject jsonObject = new JSONObject(userInfoStr);
             JSONObject creditStatus = jsonObject.getJSONObject("data").getJSONObject("creditStatus");
-            Log.d("Telechips@@@@@@@", creditStatus.toString());
             getScoreText.setText(Integer.toString(creditStatus.getInt("total_current")));
             remainScoreText.setText(Integer.toString(creditStatus.getInt("total_remain")));
             majorScoreText.setText(Integer.toString(creditStatus.getInt("major_current")));
