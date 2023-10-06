@@ -30,7 +30,9 @@ public class HomeFragment extends Fragment {
     private ScrollView scrollView;
     private Button button;
     private TextView getScoreText, remainScoreText, majorScoreText, generalScoreText;
+    private TextView stdNameText, stdIdText, majorText;
     private String userInfoStr;
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -68,6 +70,10 @@ public class HomeFragment extends Fragment {
         remainScoreText = view.findViewById(R.id.Remaining_Credits);
         majorScoreText = view.findViewById(R.id.major_Credits);
         generalScoreText = view.findViewById(R.id.Liberal_Arts_Credits);
+        stdNameText = view.findViewById(R.id.Name);
+        stdIdText = view.findViewById(R.id.StudentID);
+        majorText = view.findViewById(R.id.Major);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,65 +83,22 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        final TextView textView = view.findViewById(R.id.Name);
-
-        final TextView textView2 = view.findViewById(R.id.Major);
-
-        WebView webView = view.findViewById(R.id.webview_3);
-        WebSettings webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-
-        webView.setWebViewClient(new WebViewClient() {
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        webView.evaluateJavascript(
-                                "document.getElementById('mainframe_childframe_form_topDiv_titleDiv_spaceDiv_AccessNameStaticTextBoxElement').innerText",
-                                new ValueCallback<String>() {
-                                    @Override
-                                    public void onReceiveValue(String value) {
-                                        String result = value.replaceAll("^\"|\"$", "");
-                                        textView.setText(result);
-                                    }
-                                });
-                    }
-                }, 3000); // 1초 대기
-
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        webView.evaluateJavascript(
-                                "document.getElementById('mainframe_childframe_form_leftContentDiv_widType_BTN_MENU_DIV_menuDiv_DG_LEFT_MENU_body_gridrow_5_cell_5_0_controltree').innerText",
-                                new ValueCallback<String>() {
-                                    @Override
-                                    public void onReceiveValue(String value) {
-                                        String result = value.replaceAll("^\"|\"$", "");
-                                        textView2.setText(result);
-                                    }
-                                });
-                    }
-                }, 3000); // 1초 대기
-
-            }
-        });
-
-        webView.loadUrl("https://tis.anyang.ac.kr/main.do");
-
 
         try {
             JSONObject jsonObject = new JSONObject(userInfoStr);
-            JSONObject creditStatus = jsonObject.getJSONObject("data").getJSONObject("creditStatus");
+            JSONObject dataObj = jsonObject.getJSONObject("data");
+            JSONObject creditStatus = dataObj.getJSONObject("creditStatus");
             getScoreText.setText(Integer.toString(creditStatus.getInt("total_current")));
             remainScoreText.setText(Integer.toString(creditStatus.getInt("total_remain")));
             majorScoreText.setText(Integer.toString(creditStatus.getInt("major_current")));
             generalScoreText.setText(Integer.toString(creditStatus.getInt("general_current")));
+
+            stdNameText.setText(dataObj.getString("stdName"));
+            stdIdText.setText(dataObj.getString("stdId"));
+            majorText.setText(dataObj.getString("stdDepart"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         return view;
     }
 }

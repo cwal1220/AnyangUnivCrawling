@@ -17,12 +17,13 @@
             android:orientation="vertical">
 
 
-            <Button
-                android:id="@+id/Update_button_2"
-                android:layout_width="110dp"
-                android:layout_height="70dp"
-                android:layout_marginTop="10dp"
-                android:text="진단" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_margin="30dp"
+                android:text="진단 결과"
+                android:textSize="20dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -92,6 +93,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:layout_margin="20px"
                     android:stretchColumns="*">
                     <TableRow>
                         <TextView
@@ -99,11 +101,7 @@
                             android:padding="8dp"
                             android:text="구분"
                             android:textStyle="bold" />
-                        <TextView
-                            android:gravity="center"
-                            android:padding="8dp"
-                            android:text="과목번호"
-                            android:textStyle="bold"/>
+
                         <TextView
                             android:gravity="center"
                             android:padding="8dp"
@@ -143,36 +141,37 @@
                 android:id="@+id/abilitySubjectsTable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="20px"
                 android:stretchColumns="*">
                 <TableRow>
                     <TextView
                         android:gravity="center"
-                        android:padding="8dp"
+                        android:padding="4dp"
                         android:text="의사소통"
                         android:textStyle="bold" />
                     <TextView
                         android:gravity="center"
-                        android:padding="8dp"
+                        android:padding="4dp"
                         android:text="글로벌"
                         android:textStyle="bold"/>
                     <TextView
                         android:gravity="center"
-                        android:padding="8dp"
+                        android:padding="4dp"
                         android:text="문제해결"
                         android:textStyle="bold"/>
                     <TextView
                         android:gravity="center"
-                        android:padding="8dp"
+                        android:padding="4dp"
                         android:text="인성영성"
                         android:textStyle="bold" />
                     <TextView
                         android:gravity="center"
-                        android:padding="8dp"
+                        android:padding="4dp"
                         android:text="리더십"
                         android:textStyle="bold" />
                     <TextView
                         android:gravity="center"
-                        android:padding="8dp"
+                        android:padding="4dp"
                         android:text="융합실무"
                         android:textStyle="bold" />
                 </TableRow>
@@ -203,6 +202,7 @@
                     android:id="@+id/chapelTable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="20px"
                     android:stretchColumns="*">
                     <TableRow>
                         <TextView

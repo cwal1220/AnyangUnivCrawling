@@ -55,7 +55,7 @@ public class DiagnosisActivity extends AppCompatActivity {
             graduateBaseText.setText("졸업학점/" + creditStatus.getInt("graduate_base"));
             totalRemainText.setText("현재" + creditStatus.getInt("total_remain") + "학점이 부족합니다.");
 
-
+            // 필수과목
             JSONArray requiredSubjectsArray = userData.getJSONArray("requiredSubjects");
             for (int row = 0; row < requiredSubjectsArray.length(); row++) {
                 JSONArray requiredSubjectsRow = requiredSubjectsArray.getJSONArray(row);
@@ -71,7 +71,7 @@ public class DiagnosisActivity extends AppCompatActivity {
                 requiredSubjectsTable.addView(tableRow);
             }
 
-
+            // 교양과목
             JSONArray abilitySubjectsArray = userData.getJSONArray("generalSubject");
             TableRow abilitySubjectsTableRow = new TableRow(this);
             abilitySubjectsTableRow.setLayoutParams(new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -84,10 +84,39 @@ public class DiagnosisActivity extends AppCompatActivity {
             abilitySubjectsTable.addView(abilitySubjectsTableRow);
 
 
-
+            // 채플
             JSONObject chapelStatus = userData.getJSONObject("chapel");
             JSONArray chapelStatusRegisterArray = chapelStatus.getJSONArray("register");
             JSONArray chapelStatusCompleterArray = chapelStatus.getJSONArray("complete");
+
+            TableRow chapelRegisterTableRow = new TableRow(this);
+            chapelRegisterTableRow.setLayoutParams(new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+            TextView chapelRegisterTitleView = new TextView(this);
+            chapelRegisterTitleView.setText("등록");
+            chapelRegisterTitleView.setGravity(Gravity.CENTER);
+            chapelRegisterTableRow.addView(chapelRegisterTitleView);
+            for (int col = 0; col < chapelStatusRegisterArray.length(); col++) {
+                TextView textView = new TextView(this);
+                textView.setText(String.valueOf(chapelStatusRegisterArray.getString(col)));
+                textView.setGravity(Gravity.CENTER);
+                chapelRegisterTableRow.addView(textView);
+            }
+            chapelTable.addView(chapelRegisterTableRow);
+
+            TableRow chapelCompleteTableRow = new TableRow(this);
+            chapelCompleteTableRow.setLayoutParams(new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            TextView chapelCompleteTitleView = new TextView(this);
+            chapelCompleteTitleView.setText("완료");
+            chapelCompleteTitleView.setGravity(Gravity.CENTER);
+            chapelCompleteTableRow.addView(chapelCompleteTitleView);
+            for (int col = 0; col < chapelStatusCompleterArray.length(); col++) {
+                TextView textView = new TextView(this);
+                textView.setText(String.valueOf(chapelStatusCompleterArray.getString(col)));
+                textView.setGravity(Gravity.CENTER);
+                chapelCompleteTableRow.addView(textView);
+            }
+            chapelTable.addView(chapelCompleteTableRow);
 
 
 

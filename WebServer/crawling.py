@@ -100,7 +100,8 @@ def getStudentData(id, pw):
                 requiredSubjects = []
                 try:
                     for col in range(4):
-                        requiredSubjects.append(driver.find_element(By.XPATH, '//*[@id="mainframe_childframe_form_mainContentDiv_workDiv_WINB010705_INFODIV01_Grid04_body_gridrow_{}_cell_{}_{}GridCellTextContainerElement"]'.format(row, row, col)).text)
+                        if col != 1:
+                            requiredSubjects.append(driver.find_element(By.XPATH, '//*[@id="mainframe_childframe_form_mainContentDiv_workDiv_WINB010705_INFODIV01_Grid04_body_gridrow_{}_cell_{}_{}GridCellTextContainerElement"]'.format(row, row, col)).text)
                     driver.find_element(By.XPATH, '//*[@id="mainframe_childframe_form_mainContentDiv_workDiv_WINB010705_INFODIV01_Grid04_body_gridrow_{}_cell_{}_{}GridCellTextContainerElement"]'.format(row, row, 0)).click()
                     requiredSubjectsList.append(requiredSubjects)
                 except:
