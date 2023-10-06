@@ -1,14 +1,20 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.keys import Keys
 import time
-from pyvirtualdisplay import Display
+#from pyvirtualdisplay import Display
 
 def getStudentData(id, pw):
-    display = Display(visible=0, size=(1920, 4000))
-    display.start()
+    #display = Display(visible=0, size=(1920, 4000))
+    #display.start()
+    options = Options()
+    options.add_argument('--headless')
+    options.add_argument('window-size=1920,4000')
+
 
     # Chrome WebDriver 시작
-    driver = webdriver.Chrome()
+    driver = webdriver.Chrome(options=options)
 
     # 로그인 페이지로 이동
     driver.get("https://tis.anyang.ac.kr/index.jsp")
@@ -89,11 +95,28 @@ def getStudentData(id, pw):
             graduateResult = driver.find_element(By.XPATH, '//*[@id="mainframe_childframe_form_mainContentDiv_workDiv_WINB010705_INFODIV01_Grid06"]').text.split('\n')[-2]
             
             ################## 필수과묵 이수현황 ################## ['이수구분', '학수번호', '과목명', '이수여부', '대체과목', '비고', '교양필수', 'AA1072', '기독교개론', '이수', '교양필수', 'AA3027', 'ESP:Critical Thinking', '이수']
-            requiredSubjectsList = driver.find_element(By.XPATH, '//*[@id="mainframe_childframe_form_mainContentDiv_workDiv_WINB010705_INFODIV01_Grid04"]').text.split('\n')[6:]
-            requiredSubjectsList = [requiredSubjectsList[i:i + 4] for i in range(0, len(requiredSubjectsList), 4)] # 4개씩 묶기
+            requiredSubjectsList = []
+            for row in range(30):
+                requiredSubjects = []
+                try:
+                    for col in range(4):
+                        requiredSubjects.append(driver.find_element(By.XPATH, '//*[@id="mainframe_childframe_form_mainContentDiv_workDiv_WINB010705_INFODIV01_Grid04_body_gridrow_{}_cell_{}_{}GridCellTextContainerElement"]'.format(row, row, col)).text)
+                    driver.find_element(By.XPATH, '//*[@id="mainframe_childframe_form_mainContentDiv_workDiv_WINB010705_INFODIV01_Grid04_body_gridrow_{}_cell_{}_{}GridCellTextContainerElement"]'.format(row, row, 0)).click()
+                    requiredSubjectsList.append(requiredSubjects)
+                except:
+                    break
 
             ################## 교양선택 역량별 이수현황 ################## ['역량명', '의사소통', '글로벌', '문제해결', '인성영성', '리더십', '융합실무', '이수과목', '2(0)', '2(0)', '7(0)', '2(1)', '1(0)', '0(0)']
             generalSubjectList = driver.find_element(By.XPATH, '//*[@id="mainframe_childframe_form_mainContentDiv_workDiv_WINB010705_INFODIV01_Grid03"]').text.split('\n')[8:]
+
+            # 이름
+            stdName = driver.find_element(By.ID, 'mainframe_childframe_form_mainContentDiv_workDiv_WINB010705_COMMONDIV01_INFODIV01_D_NAME_input').get_attribute("value")
+            # 학번
+            stdId = driver.find_element(By.ID, 'mainframe_childframe_form_mainContentDiv_workDiv_WINB010705_COMMONDIV01_INFODIV01_D_HAKBEON_input').get_attribute("value")
+            # 학년
+            stdLevel = driver.find_element(By.ID, 'mainframe_childframe_form_mainContentDiv_workDiv_WINB010705_COMMONDIV01_INFODIV01_D_HAKNYEON_input').get_attribute("value")
+            # 학과
+            stdDepart = driver.find_element(By.ID, 'mainframe_childframe_form_mainContentDiv_workDiv_WINB010705_COMMONDIV01_INFODIV01_D_JEONGONG_NM_input').get_attribute("value")
 
             retDict = {}
             retDict['creditStatus'] = creditStatusDict
@@ -101,7 +124,11 @@ def getStudentData(id, pw):
             retDict['graduateResult'] = graduateResult
             retDict['requiredSubjects'] = requiredSubjectsList
             retDict['generalSubject'] = generalSubjectList
-            
+            retDict['stdName'] = stdName
+            retDict['stdId'] = stdId
+            retDict['stdLevel'] = stdLevel
+            retDict['stdDepart'] = stdDepart
+
             # # 의사소통
             # driver.find_element(By.XPATH, '//*[@id="mainframe_childframe_form_mainContentDiv_workDiv_WINB010705_INFODIV01_Grid03_body_gridrow_0_cell_0_1_controlexpand"]/div').click()
             # time.sleep(3)
@@ -138,12 +165,12 @@ def getStudentData(id, pw):
             # print(driver.find_element(By.XPATH, '//*[@id="mainframe_childframe_hg_4050610_p_form_PopupForm_DG_GRID01"]').text.split('\n'))
             # driver.find_element(By.XPATH, '//*[@id="mainframe_childframe_hg_4050610_p_form_PopupForm_POPUPBOTTOMDIV01_ButtonCloseTextBoxElement"]/div').click()
     except:
-        print("hehe")
+        print("Login Fail")
         driver.quit()
         return False
-        
+
     driver.quit()
     return retDict
 
 if __name__ == '__main__':
-    print(getStudentData())
+    print(getStudentData('2019U1132', '!@#atlantis771'))
