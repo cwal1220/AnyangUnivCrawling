@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".CertificateActivity">
+
+    <!-- 제목 -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="자격증"
+        android:textSize="24sp"
+        /><!-- 가운데 정렬 -->
+
+
+
+    <!-- 버튼들을 담을 수 있는 레이아웃 -->
+
+    <EditText
+        android:id="@+id/certificate_text"
+        android:layout_width="match_parent"
+        android:layout_height="598dp"
+        android:layout_marginTop="16dp"
+        android:gravity="start|top"
+        android:hint="여기에 글을 작성하세요."
+        android:inputType="textMultiLine"
+        android:minLines="5" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        android:gravity="end">
+
+        <!-- 다시 작성 버튼 -->
+
+        <!-- 저장하기 버튼 -->
+        <Button
+            android:id="@+id/certificate_write_reset_button"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="다시 작성" />
+
+        <Button
+            android:id="@+id/certificate_write_save_button"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="저장하기" />
+    </LinearLayout>
+
+</LinearLayout>

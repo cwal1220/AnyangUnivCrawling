@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.anyang_setup">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="false"
+        android:fullBackupContent="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="AYSetup"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Anyang_setup"
+        android:usesCleartextTraffic="true"
+        tools:ignore="DataExtractionRules">
+        <activity
+            android:name=".Chatting.SubActivity.ChatRoomActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Spec.SubActivity.AwardsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Spec.SubActivity.ExternalActivitiesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Spec.SubActivity.CertificateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Info.SubActivity.DiagnosisActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Setting.SettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Chatting.ChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Spec.SpecActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Info.UserInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
