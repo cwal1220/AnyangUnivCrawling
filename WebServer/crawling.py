@@ -96,7 +96,7 @@ def getStudentData(id, pw):
             
             ################## 필수과묵 이수현황 ################## ['이수구분', '학수번호', '과목명', '이수여부', '대체과목', '비고', '교양필수', 'AA1072', '기독교개론', '이수', '교양필수', 'AA3027', 'ESP:Critical Thinking', '이수']
             requiredSubjectsList = []
-            for row in range(30):
+            for row in [0,1,2,3,4,5,6,7,8,9,0]:
                 requiredSubjects = []
                 try:
                     for col in range(4):

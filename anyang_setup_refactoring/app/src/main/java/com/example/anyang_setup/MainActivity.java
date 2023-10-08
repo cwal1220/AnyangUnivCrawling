@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressDialog = ProgressDialog.show(MainActivity.this, "Loading", "로그인 중...");
+                progressDialog = ProgressDialog.show(MainActivity.this, "Loading", "로그인 중...\n최장 2분 소요됩니다.");
                 JSONObject jsonObject = new JSONObject();
                 try {
                     jsonObject.put("id", mUsernameEditText.getText().toString()); // 2019U1132
@@ -117,9 +117,9 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 OkHttpClient client = new OkHttpClient.Builder()
-                        .connectTimeout(40, TimeUnit.MINUTES)
-                        .readTimeout(40, TimeUnit.SECONDS)
-                        .writeTimeout(40, TimeUnit.SECONDS)
+                        .connectTimeout(120, TimeUnit.MINUTES)
+                        .readTimeout(120, TimeUnit.SECONDS)
+                        .writeTimeout(120, TimeUnit.SECONDS)
                         .build();
 
                 RequestBody requestBody = RequestBody.create(
