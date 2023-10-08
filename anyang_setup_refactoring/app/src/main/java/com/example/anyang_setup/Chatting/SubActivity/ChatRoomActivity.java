@@ -15,6 +15,7 @@ import android.widget.ListView;
 
 import com.example.anyang_setup.Chatting.ChatDTO;
 import com.example.anyang_setup.R;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -49,6 +50,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         CHAT_NAME = intent.getStringExtra("chatRoom");
         USER_NAME = intent.getStringExtra("userinfo");
 
+
         // 채팅 방 입장
         openChat(CHAT_NAME);
 
@@ -66,8 +68,14 @@ public class ChatRoomActivity extends AppCompatActivity {
         });
     }
     private void addMessage(DataSnapshot dataSnapshot, ArrayAdapter<String> adapter) {
-        ChatDTO chatDTO = dataSnapshot.getValue(ChatDTO.class);
-        adapter.add(chatDTO.getUserName() + " : " + chatDTO.getMessage());
+
+        try {
+            ChatDTO chatDTO = dataSnapshot.getValue(ChatDTO.class);
+            adapter.add(chatDTO.getUserName() + " : " + chatDTO.getMessage());
+        }
+        catch (Exception e) {
+
+        }
     }
 
     private void removeMessage(DataSnapshot dataSnapshot, ArrayAdapter<String> adapter) {

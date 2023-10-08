@@ -19,10 +19,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.anyang_setup.Chatting.SubActivity.ChatRoomActivity;
+import com.example.anyang_setup.Chatting.SubActivity.CreateNewChatActivity;
 import com.example.anyang_setup.HomeActivity;
 import com.example.anyang_setup.Info.UserInfoActivity;
 import com.example.anyang_setup.MainActivity;
 import com.example.anyang_setup.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -31,6 +36,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class ChatActivity extends AppCompatActivity implements View.OnClickListener {
@@ -142,12 +151,76 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         chat_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
                 String selected_item = (String)adapterView.getItemAtPosition(i);
 
-                Intent intent = new Intent(ChatActivity.this, ChatRoomActivity.class);
-                intent.putExtra("userinfo", userName);
-                intent.putExtra("chatRoom", selected_item);
-                startActivity(intent);
+                databaseReference.child("chat").child(selected_item).child("chatRef").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DataSnapshot dataSnapshot = task.getResult();
+                            if (dataSnapshot.exists()) {
+
+                                List<String> acceptUser = new ArrayList<>();
+                                boolean joinFlag = false;
+
+
+                                for (DataSnapshot tmp : dataSnapshot.child("acceptUser").getChildren()) {
+                                    acceptUser.add(tmp.getValue(String.class));
+                                }
+
+                                String maximumUser = dataSnapshot.child("maximumUser").getValue(String.class);
+
+
+                                for(int j = 0 ; j < acceptUser.size(); j++)
+                                {
+                                    Log.e("Telechips", acceptUser.get(j));
+                                }
+
+                                Log.e("Telechips", maximumUser + " / " + acceptUser.size());
+
+
+                                if(acceptUser.contains(userName))
+                                {
+                                    joinFlag = true;
+                                }
+
+                                if(Integer.parseInt(maximumUser) > acceptUser.size())
+                                {
+                                    joinFlag = true;
+                                }
+
+                                if(joinFlag)
+                                {
+                                    Map<String, Object> updateData = new HashMap<>();
+                                    acceptUser.add(userName);
+                                    updateData.put("acceptUser", acceptUser);
+
+                                    databaseReference.child("chat").child(selected_item).child("chatRef").updateChildren(updateData)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Intent intent = new Intent(ChatActivity.this, ChatRoomActivity.class);
+                                                    intent.putExtra("userinfo", userName);
+                                                    intent.putExtra("chatRoom", selected_item);
+                                                    startActivity(intent);
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Toast.makeText(getApplicationContext(), "채팅방 입장에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                }
+                                else
+                                {
+                                    Toast.makeText(getApplicationContext(), "정원이 초과하여 입장할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+                    }
+                });
             }
         });
 
@@ -232,27 +305,9 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         {
             case R.id.addChatRoomButton :
             {
-                EditText edittext = new EditText(this);
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-                builder.setTitle("채팅방 생성");
-                builder.setMessage("채팅방 이름을 이력해 주세요");
-                builder.setView(edittext);
-                builder.setPositiveButton("입력",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                ChatDTO chat = new ChatDTO("Notice", "어서오세요. "+userName+"님이 생성한 채팅방 입니다."); //ChatDTO를 이용하여 데이터를 묶는다.
-                                databaseReference.child("chat").child(edittext.getText().toString()).push().setValue(chat); // 데이터 푸쉬
-                                edittext.setText("");
-                            }
-                        });
-                builder.setNegativeButton("취소",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        });
-                builder.show();
+                Intent intent = new Intent(ChatActivity.this, CreateNewChatActivity.class);
+                intent.putExtra("userinfo", userName);
+                startActivity(intent);
 
                 break;
             }
