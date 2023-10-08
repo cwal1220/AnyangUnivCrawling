@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
+import re
 import time
 #from pyvirtualdisplay import Display
 
@@ -109,6 +110,21 @@ def getStudentData(id, pw):
 
             ################## 교양선택 역량별 이수현황 ################## ['역량명', '의사소통', '글로벌', '문제해결', '인성영성', '리더십', '융합실무', '이수과목', '2(0)', '2(0)', '7(0)', '2(1)', '1(0)', '0(0)']
             generalSubjectList = driver.find_element(By.XPATH, '//*[@id="mainframe_childframe_form_mainContentDiv_workDiv_WINB010705_INFODIV01_Grid03"]').text.split('\n')[8:]
+            
+            # Temp Variables
+            subjectNameList = ['의사소통', '글로벌', '문제해결', '인성영성', '리더십', '융합실무']
+            generalSubjecResultStr = "아래의 역량이 더 필요합니다."
+            completeSubject = 0
+            
+            for i, subjectStr in enumerate(generalSubjectList):
+                numbers = re.findall(r'\d+', subjectStr)
+                if(int(numbers[0]) < 2):
+                    generalSubjecResultStr = generalSubjecResultStr + '\n-' + subjectNameList[i]
+                else:
+                    completeSubject = completeSubject + 1
+            if(completeSubject >= 3):
+                generalSubjecResultStr = "모든 역량을 이수하셨습니다."
+
 
             # 이름
             stdName = driver.find_element(By.ID, 'mainframe_childframe_form_mainContentDiv_workDiv_WINB010705_COMMONDIV01_INFODIV01_D_NAME_input').get_attribute("value")
@@ -125,6 +141,7 @@ def getStudentData(id, pw):
             retDict['graduateResult'] = graduateResult
             retDict['requiredSubjects'] = requiredSubjectsList
             retDict['generalSubject'] = generalSubjectList
+            retDict['generalSubjectResult'] = generalSubjecResultStr
             retDict['stdName'] = stdName
             retDict['stdId'] = stdId
             retDict['stdLevel'] = stdLevel
@@ -165,8 +182,8 @@ def getStudentData(id, pw):
             # time.sleep(3)
             # print(driver.find_element(By.XPATH, '//*[@id="mainframe_childframe_hg_4050610_p_form_PopupForm_DG_GRID01"]').text.split('\n'))
             # driver.find_element(By.XPATH, '//*[@id="mainframe_childframe_hg_4050610_p_form_PopupForm_POPUPBOTTOMDIV01_ButtonCloseTextBoxElement"]/div').click()
-    except:
-        print("Login Fail")
+    except Exception as e:
+        print(e)
         driver.quit()
         return False
 

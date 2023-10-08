@@ -62,17 +62,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="-50dp"
                 android:gravity="center"
                 android:text="현재 9 학점이 부족합니다."
                 android:textSize="17dp" />
 
             <TextView
-                android:id="@+id/General_Education_Requirement4"
+                android:id="@+id/averageCreditResultText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="-50dp"
                 android:gravity="center"
                 android:text="--학년 평균 취득 학점은 --입니다."
                 android:textSize="17dp" />
@@ -119,11 +117,10 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/General_Education_Requirement5"
+                android:id="@+id/requiredSubjectText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="-50dp"
                 android:gravity="center"
                 android:text="-- 과목을 이수 하셔야 합니다."
                 android:textSize="17dp" />
@@ -179,11 +176,10 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/General_Education_Requirement8"
+                android:id="@+id/generalSubjectResult"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="-50dp"
                 android:gravity="center"
                 android:text="-- 역량이 부족합니다!
                 \n 교양의 역량을 확인하고 신청하세요!"
@@ -225,11 +221,10 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/General_Education_Requirement9"
+                android:id="@+id/chapelResultText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="-50dp"
                 android:gravity="center"
                 android:text="--번 채플을 더 수강하셔야 합니다."
                 android:textSize="17dp" />
@@ -259,7 +254,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="-50dp"
                 android:gravity="center"
                 android:text=""
                 android:textSize="17dp" />
