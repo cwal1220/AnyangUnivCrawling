@@ -42,6 +42,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         chat_view = (ListView) findViewById(R.id.chat_view);
         chat_edit = (EditText) findViewById(R.id.chat_edit);
         chat_send = (Button) findViewById(R.id.chat_sent);
+        chat_view.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
 
         // 로그인 화면에서 받아온 채팅방 이름, 유저 이름 저장
         Intent intent = getIntent();
@@ -85,8 +86,8 @@ public class ChatRoomActivity extends AppCompatActivity {
         databaseReference.child("chat").child(chatName).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
                 addMessage(dataSnapshot, adapter);
-                Log.e("LOG", "s:"+s);
             }
 
             @Override
