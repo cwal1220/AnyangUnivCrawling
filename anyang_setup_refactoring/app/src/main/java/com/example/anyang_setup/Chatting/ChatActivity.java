@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.anyang_setup.Chatting.SubActivity.ChatRoomActivity;
+import com.example.anyang_setup.Chatting.SubActivity.ChatRoomInfoActivity;
 import com.example.anyang_setup.Chatting.SubActivity.CreateNewChatActivity;
 import com.example.anyang_setup.HomeActivity;
 import com.example.anyang_setup.Info.UserInfoActivity;
@@ -82,56 +83,43 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 EditText edittext = new EditText(parent.getContext());
                 AlertDialog.Builder builder = new AlertDialog.Builder(parent.getContext());
                 String selected_item = (String)parent.getItemAtPosition(position);
-                final int[] workingFlag = {0};
-                boolean deleteFlag = false;
-
+                String[] splitedChatName = selected_item.split("\t");
                 builder.setTitle("채팅방 삭제");
                 builder.setMessage("*주의* 채팅방을 삭제할 경우 복구할 수 없습니다.");
-//                builder.setView(edittext);
                 builder.setPositiveButton("삭제",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
 
-                                databaseReference.child("chat").child(selected_item).addChildEventListener(new ChildEventListener() {
+                                databaseReference.child("chat").child(splitedChatName[0]).child("chatHello").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                                     @Override
-                                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                                        ChatDTO chatDTO = dataSnapshot.getValue(ChatDTO.class);
+                                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            DataSnapshot dataSnapshot = task.getResult();
+                                            if (dataSnapshot.exists()) {
 
-                                        assert chatDTO != null;
-                                        if(workingFlag[0] == 0)
-                                        {
-                                            if(Objects.equals(chatDTO.getUserName(), "Notice") && chatDTO.getMessage().contains(userName))
-                                            {
-                                                Log.e("Telechips", chatDTO.getMessage()+ " " + chatDTO.getUserName());
-                                                databaseReference.child("chat").child(selected_item).removeValue();
+                                                String chatOwner = dataSnapshot.child("message").getValue(String.class);
 
-                                                Toast.makeText(getApplicationContext(), "채팅방이 정상 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                                                if(chatOwner.contains(userName))
+                                                {
+                                                    databaseReference.child("chat").child(splitedChatName[0]).removeValue();
+
+                                                    Toast.makeText(getApplicationContext(), "채팅방이 정상 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                                                }
+                                                else
+                                                {
+                                                    Toast.makeText(getApplicationContext(), "자신이 만든 채팅방 외에는 삭제할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                                                }
+
                                             }
                                             else
                                             {
-                                                Toast.makeText(getApplicationContext(), "자신이 만든 채팅방 외에는 삭제할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                                                Log.e("Telechips", "Long Clicked not data");
                                             }
-
-                                            workingFlag[0]++;
                                         }
-                                    }
-                                    @Override
-                                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                                    }
-
-                                    @Override
-                                    public void onChildRemoved(DataSnapshot dataSnapshot) {
-                                    }
-
-                                    @Override
-                                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                                    }
-
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-
+                                        else
+                                        {
+                                            Log.e("Telechips", "Long Clicked Task Fail");
+                                        }
                                     }
                                 });
                             }
@@ -153,12 +141,14 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 String selected_item = (String)adapterView.getItemAtPosition(i);
+                String[] splitedChatName = selected_item.split("\t");
 
-                databaseReference.child("chat").child(selected_item).child("chatRef").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                databaseReference.child("chat").child(splitedChatName[0]).child("chatRef").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DataSnapshot> task) {
                         if (task.isSuccessful()) {
                             DataSnapshot dataSnapshot = task.getResult();
+
                             if (dataSnapshot.exists()) {
 
                                 List<String> acceptUser = new ArrayList<>();
@@ -170,22 +160,10 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                                 }
 
                                 String maximumUser = dataSnapshot.child("maximumUser").getValue(String.class);
+                                String chatContext = dataSnapshot.child("chatContext").getValue(String.class);
+                                String chatOwner = dataSnapshot.child("chatOwner").getValue(String.class);
 
-
-                                for(int j = 0 ; j < acceptUser.size(); j++)
-                                {
-                                    Log.e("Telechips", acceptUser.get(j));
-                                }
-
-                                Log.e("Telechips", maximumUser + " / " + acceptUser.size());
-
-
-                                if(acceptUser.contains(userName))
-                                {
-                                    joinFlag = true;
-                                }
-
-                                if(Integer.parseInt(maximumUser) > acceptUser.size())
+                                if(acceptUser.contains(userName) || Integer.parseInt(maximumUser) > acceptUser.size())
                                 {
                                     joinFlag = true;
                                 }
@@ -193,17 +171,35 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                                 if(joinFlag)
                                 {
                                     Map<String, Object> updateData = new HashMap<>();
-                                    acceptUser.add(userName);
+                                    if(!acceptUser.contains(userName))
+                                    {
+                                        acceptUser.add(userName);
+                                    }
+
                                     updateData.put("acceptUser", acceptUser);
 
-                                    databaseReference.child("chat").child(selected_item).child("chatRef").updateChildren(updateData)
+                                    databaseReference.child("chat").child(splitedChatName[0]).child("chatRef").updateChildren(updateData)
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
-                                                    Intent intent = new Intent(ChatActivity.this, ChatRoomActivity.class);
-                                                    intent.putExtra("userinfo", userName);
-                                                    intent.putExtra("chatRoom", selected_item);
+                                                    Intent intent = new Intent(ChatActivity.this, ChatRoomInfoActivity.class);
+
+                                                    intent.putExtra("userName", userName);
+                                                    intent.putExtra("chatRoom", splitedChatName[0]);
+                                                    intent.putExtra("userinfo", maximumUser);
+                                                    intent.putExtra("chatContext", chatContext);
+                                                    if(acceptUser.contains(userName))
+                                                    {
+                                                        intent.putExtra("chatNowUser", Integer.toString(acceptUser.size()));
+                                                    }
+                                                    else
+                                                    {
+                                                        intent.putExtra("chatNowUser", Integer.toString(acceptUser.size() - 1));
+                                                    }
+
                                                     startActivity(intent);
+
+                                                    finish();
                                                 }
                                             })
                                             .addOnFailureListener(new OnFailureListener() {
@@ -218,6 +214,14 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                                     Toast.makeText(getApplicationContext(), "정원이 초과하여 입장할 수 없습니다.", Toast.LENGTH_SHORT).show();
                                 }
                             }
+                            else
+                            {
+                                Log.e("Telechips", "Join Data not exist");
+                            }
+                        }
+                        else
+                        {
+                            Log.e("Telechips", "Clicked Task Fail");
                         }
                     }
                 });
@@ -233,7 +237,29 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         defaultEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                adapter.add(snapshot.getKey());
+
+                databaseReference.child("chat").child(snapshot.getKey()).child("chatRef").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DataSnapshot dataSnapshot = task.getResult();
+                            if (dataSnapshot.exists()) {
+
+                                List<String> acceptUser = new ArrayList<>();
+                                boolean joinFlag = false;
+
+
+                                for (DataSnapshot tmp : dataSnapshot.child("acceptUser").getChildren()) {
+                                    acceptUser.add(tmp.getValue(String.class));
+                                }
+
+                                String maximumUser = dataSnapshot.child("maximumUser").getValue(String.class);
+                                String ChattingName = snapshot.getKey() + "\t(" + Integer.toString(acceptUser.size()) + "/" + maximumUser + ")";
+                                adapter.add(ChattingName);
+                            }
+                        }
+                    }
+                });
             }
 
             @Override
@@ -243,7 +269,15 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                adapter.remove(snapshot.getKey());
+
+                for(int i = 0 ; i < adapter.getCount(); i++)
+                {
+                    if(adapter.getItem(i).contains(snapshot.getKey()))
+                    {
+                        adapter.remove(adapter.getItem(i));
+                        break;
+                    }
+                }
             }
 
             @Override
@@ -260,18 +294,45 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         myChatEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                DataSnapshot firstDataSnapshot = null;
-                for (DataSnapshot test : snapshot.getChildren()) {
-                    firstDataSnapshot = test;
-                    break;
-                }
 
-                ChatDTO chatDTO = firstDataSnapshot.getValue(ChatDTO.class);
+                databaseReference.child("chat").child(snapshot.getKey()).child("chatHello").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DataSnapshot dataSnapshot = task.getResult();
+                            if (dataSnapshot.exists()) {
 
-                if(chatDTO.getMessage().contains(userName))
-                {
-                    adapter.add(snapshot.getKey());
-                }
+                                ChatDTO chatDTO = dataSnapshot.getValue(ChatDTO.class);
+
+                                if(chatDTO.getMessage().contains(userName))
+                                {
+                                    databaseReference.child("chat").child(snapshot.getKey()).child("chatRef").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                DataSnapshot dataSnapshot = task.getResult();
+                                                if (dataSnapshot.exists()) {
+
+                                                    List<String> acceptUser = new ArrayList<>();
+                                                    boolean joinFlag = false;
+
+
+                                                    for (DataSnapshot tmp : dataSnapshot.child("acceptUser").getChildren()) {
+                                                        acceptUser.add(tmp.getValue(String.class));
+                                                    }
+
+                                                    String maximumUser = dataSnapshot.child("maximumUser").getValue(String.class);
+                                                    String ChattingName = snapshot.getKey() + "\t(" + Integer.toString(acceptUser.size()) + "/" + maximumUser + ")";
+                                                    adapter.add(ChattingName);
+                                                }
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    }
+                });
             }
 
             @Override
@@ -281,7 +342,14 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                adapter.remove(snapshot.getKey());
+                for(int i = 0 ; i < adapter.getCount(); i++)
+                {
+                    if(adapter.getItem(i).contains(snapshot.getKey()))
+                    {
+                        adapter.remove(adapter.getItem(i));
+                        break;
+                    }
+                }
             }
 
             @Override

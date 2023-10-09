@@ -7,13 +7,15 @@ public class ChatRef {
     private String MaximumUser;
     private List<String> acceptUser;
     private String chatContext;
+    private String chatOwner;
 
     public ChatRef() {}
 
-    public ChatRef(String MaximumUser, String acceptUser, String chatContext) {
+    public ChatRef(String MaximumUser, String acceptUser, String chatContext, String chatOwner) {
         this.acceptUser = new ArrayList<>();
         this.MaximumUser = MaximumUser;
         this.chatContext = chatContext;
+        this.chatOwner = chatOwner;
         this.acceptUser.add(acceptUser);
     }
     public String getMaximumUser() {

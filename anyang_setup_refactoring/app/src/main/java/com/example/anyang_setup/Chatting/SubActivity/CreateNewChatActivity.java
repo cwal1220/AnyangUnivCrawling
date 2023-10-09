@@ -91,24 +91,40 @@ public class CreateNewChatActivity extends AppCompatActivity implements View.OnC
                 }
 
 
-                ChatRef chatRef = new ChatRef(maxChatEditText.getText().toString(), userName, chatContextEditText.getText().toString());
+                ChatRef chatRef = new ChatRef(maxChatEditText.getText().toString(), userName, chatContextEditText.getText().toString(), userName);
 
                 databaseReference.child("chat").child(chatNameEditText.getText().toString()).child("chatRef").setValue(chatRef)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 ChatDTO chat = new ChatDTO("Notice", "어서오세요. "+userName+"님이 생성한 채팅방 입니다."); //ChatDTO를 이용하여 데이터를 묶는다.
-                                databaseReference.child("chat").child(chatNameEditText.getText().toString()).push().setValue(chat); // 데이터 푸쉬
 
-                                finish();
+                                databaseReference.child("chat").child(chatNameEditText.getText().toString()).child("chatHello").setValue(chat)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
 
-                                Toast.makeText(getApplicationContext(), "채팅방이 생성되었습니다.", Toast.LENGTH_SHORT).show();
+                                                finish();
+
+                                                Toast.makeText(getApplicationContext(), "채팅방이 생성되었습니다.", Toast.LENGTH_SHORT).show();
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                finish();
+
+                                                Toast.makeText(getApplicationContext(), "채팅방 생성에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                // 추가가 실패한 경우 실행할 코드
+                                finish();
+
+                                Toast.makeText(getApplicationContext(), "채팅방 생성에 실패하였습니다.", Toast.LENGTH_SHORT).show();
                             }
                         });
 

@@ -51,9 +51,6 @@ public class MainActivity extends AppCompatActivity {
         mPasswordEditText = findViewById(R.id.password_edit_text);
         mLoginButton = findViewById(R.id.login_button);
 
-        mUsernameEditText.setText("2018E7001");
-        mPasswordEditText.setText("rkd@@27488757");
-
         Callback updateUserInfoCallback = new Callback() {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {

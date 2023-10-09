@@ -50,7 +50,6 @@ public class ChatRoomActivity extends AppCompatActivity {
         CHAT_NAME = intent.getStringExtra("chatRoom");
         USER_NAME = intent.getStringExtra("userinfo");
 
-
         // 채팅 방 입장
         openChat(CHAT_NAME);
 
@@ -85,17 +84,28 @@ public class ChatRoomActivity extends AppCompatActivity {
 
     private void openChat(String chatName) {
         // 리스트 어댑터 생성 및 세팅
-        final ArrayAdapter<String> adapter
-
-                = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1);
         chat_view.setAdapter(adapter);
 
         // 데이터 받아오기 및 어댑터 데이터 추가 및 삭제 등..리스너 관리
         databaseReference.child("chat").child(chatName).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Log.e("Telechips", dataSnapshot.getKey());
 
-                addMessage(dataSnapshot, adapter);
+                if(dataSnapshot.getKey().contains("chatHello"))
+                {
+                    ChatDTO chatDTO = dataSnapshot.getValue(ChatDTO.class);
+                    adapter.insert(chatDTO.getUserName() + " : " + chatDTO.getMessage(),0);
+                }
+                else if(dataSnapshot.getKey().contains("chatRef"))
+                {
+                    // do not work
+                }
+                else // Message
+                {
+                    addMessage(dataSnapshot, adapter);
+                }
             }
 
             @Override

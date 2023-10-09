@@ -16,6 +16,9 @@
         android:usesCleartextTraffic="true"
         tools:ignore="DataExtractionRules">
         <activity
+            android:name=".Chatting.SubActivity.ChatRoomInfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".Chatting.SubActivity.CreateNewChatActivity"
             android:exported="false" />
         <activity
