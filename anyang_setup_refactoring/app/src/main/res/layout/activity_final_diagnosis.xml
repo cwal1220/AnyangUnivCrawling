@@ -12,11 +12,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textSize="20dp"
+        android:textSize="30dp"
         android:textStyle="bold"
         android:gravity="center_vertical"
         android:paddingLeft="30dp"
         android:text="최종 진단!!" />
+
+    <TextView
+        android:id="@+id/resultTitleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:padding="20dp"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:text="아직 졸업은 아니시군요?" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -30,7 +40,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="3"
-        android:text="TextView" />
+        android:padding="20dp"
+        android:textSize="15dp"
+        android:text="졸업 진단 결과" />
 
     <Button
         android:id="@+id/homeButton"

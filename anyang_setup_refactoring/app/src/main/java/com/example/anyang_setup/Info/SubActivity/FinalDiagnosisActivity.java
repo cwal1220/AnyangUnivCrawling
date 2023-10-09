@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FinalDiagnosisActivity extends AppCompatActivity {
-    TextView titleText, resultText;
+    TextView titleText, resultText, resultTitleView;
     Button homeButton, curriculumButton;
     ImageView imageView;
     String userinfoStr;
@@ -36,6 +36,7 @@ public class FinalDiagnosisActivity extends AppCompatActivity {
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_final_diagnosis);
         titleText = findViewById(R.id.titleView);
+        resultTitleView = findViewById(R.id.resultTitleView);
         resultText = findViewById(R.id.resultView);
         homeButton = findViewById(R.id.homeButton);
         curriculumButton = findViewById(R.id.curriculumButton);
@@ -101,6 +102,9 @@ public class FinalDiagnosisActivity extends AppCompatActivity {
             else
             {
                 curriculumButton.setVisibility(View.INVISIBLE);
+                resultTitleView.setVisibility(View.INVISIBLE);
+                resultText.setText("졸업을 진심으로 축하드립니다!");
+
             }
 
         } catch (JSONException e) {
