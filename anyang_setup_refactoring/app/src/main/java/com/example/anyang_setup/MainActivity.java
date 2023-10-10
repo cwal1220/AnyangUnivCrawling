@@ -1,13 +1,16 @@
 package com.example.anyang_setup;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,8 +41,9 @@ public class MainActivity extends AppCompatActivity {
     private EditText mPasswordEditText;
     private Button mLoginButton;
     private ProgressDialog progressDialog;
+    private CheckBox autoLoginCheckBox;
 
-
+    String loginId, loginPwd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +54,12 @@ public class MainActivity extends AppCompatActivity {
         mUsernameEditText = findViewById(R.id.username_edit_text);
         mPasswordEditText = findViewById(R.id.password_edit_text);
         mLoginButton = findViewById(R.id.login_button);
+        autoLoginCheckBox = findViewById(R.id.autoLoginCheckBox);
+
+        SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
+
+        loginId = auto.getString("inputId",null);
+        loginPwd = auto.getString("inputPwd",null);
 
         Callback updateUserInfoCallback = new Callback() {
             @Override
@@ -66,9 +76,20 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(MainActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
                             }
                         });
+
+                        if(autoLoginCheckBox.isChecked())
+                        {
+                            SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
+                            SharedPreferences.Editor autoLogin = auto.edit();
+                            autoLogin.putString("inputId", mUsernameEditText.getText().toString());
+                            autoLogin.putString("inputPwd", mPasswordEditText.getText().toString());
+                            autoLogin.commit();
+                        }
+
                         Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                         intent.putExtra("userinfo", jsonObject.toString());
                         startActivity(intent);
+
                         finish();
                     } else {
                         runOnUiThread(new Runnable() {
@@ -133,5 +154,37 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        if(loginId !=null && loginPwd != null)
+        {
+            mUsernameEditText.setText(loginId);
+            mPasswordEditText.setText(loginPwd);
+            autoLoginCheckBox.setChecked(true);
+
+            progressDialog = ProgressDialog.show(MainActivity.this, "Loading", "로그인 중...\n최장 2분 소요됩니다.");
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("id", mUsernameEditText.getText().toString()); // 2019U1132
+                jsonObject.put("pw", mPasswordEditText.getText().toString()); // !@#atlantis771
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            OkHttpClient client = new OkHttpClient.Builder()
+                    .connectTimeout(120, TimeUnit.MINUTES)
+                    .readTimeout(120, TimeUnit.SECONDS)
+                    .writeTimeout(120, TimeUnit.SECONDS)
+                    .build();
+
+            RequestBody requestBody = RequestBody.create(
+                    MediaType.parse("application/json; charset=utf-8"),
+                    jsonObject.toString()
+            );
+
+            Request request = new Request.Builder()
+                    .url("http://158.179.161.134:3007/login")
+                    .post(requestBody)
+                    .build();
+
+            client.newCall(request).enqueue(updateUserInfoCallback);
+        }
     }
 }

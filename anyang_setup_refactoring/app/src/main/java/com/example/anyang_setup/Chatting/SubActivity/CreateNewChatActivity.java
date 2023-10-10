@@ -97,7 +97,7 @@ public class CreateNewChatActivity extends AppCompatActivity implements View.OnC
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                ChatDTO chat = new ChatDTO("Notice", "어서오세요. "+userName+"님이 생성한 채팅방 입니다."); //ChatDTO를 이용하여 데이터를 묶는다.
+                                ChatDTO chat = new ChatDTO("Notice", "어서오세요. "+userName+"님이 생성한 채팅방 입니다.", ""); //ChatDTO를 이용하여 데이터를 묶는다.
 
                                 databaseReference.child("chat").child(chatNameEditText.getText().toString()).child("chatHello").setValue(chat)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {

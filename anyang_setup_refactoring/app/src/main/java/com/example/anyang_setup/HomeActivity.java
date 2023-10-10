@@ -64,7 +64,7 @@ public class HomeActivity extends AppCompatActivity{
                     {
                         try {
                             JSONObject data = userInfoJson.getJSONObject("data");
-                            String Name = data.getString("stdName");
+                            String Name = data.getString("stdId");
                             Log.e("Telechips", Name);
 
                             Intent intent = new Intent(HomeActivity.this, ChatActivity.class);

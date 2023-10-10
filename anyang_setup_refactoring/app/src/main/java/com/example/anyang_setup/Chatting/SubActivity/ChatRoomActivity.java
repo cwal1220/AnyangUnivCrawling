@@ -22,6 +22,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class ChatRoomActivity extends AppCompatActivity {
 
     private String CHAT_NAME;
@@ -59,7 +62,12 @@ public class ChatRoomActivity extends AppCompatActivity {
                 if (chat_edit.getText().toString().equals(""))
                     return;
 
-                ChatDTO chat = new ChatDTO(USER_NAME, chat_edit.getText().toString()); //ChatDTO를 이용하여 데이터를 묶는다.
+                long now = System.currentTimeMillis();
+                Date date = new Date(now);
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                String getTime = sdf.format(date);
+
+                ChatDTO chat = new ChatDTO(USER_NAME, chat_edit.getText().toString(), getTime); //ChatDTO를 이용하여 데이터를 묶는다.
                 databaseReference.child("chat").child(CHAT_NAME).push().setValue(chat); // 데이터 푸쉬
                 chat_edit.setText(""); //입력창 초기화
 
@@ -70,7 +78,9 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         try {
             ChatDTO chatDTO = dataSnapshot.getValue(ChatDTO.class);
-            adapter.add(chatDTO.getUserName() + " : " + chatDTO.getMessage());
+
+
+            adapter.add(chatDTO.getUserName() + " : " + chatDTO.getMessage() + "\n\n                                                        (" + chatDTO.getChatTime()+")");
         }
         catch (Exception e) {
 
