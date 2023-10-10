@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                 );
 
                 Request request = new Request.Builder()
-                        .url("http://138.2.126.137:3007/login")
+                        .url("http://158.179.161.134:3007/login")
                         .post(requestBody)
                         .build();
 

@@ -11,6 +11,9 @@ def on_login():
 		ret = {'success': True}
 		try:
 			data = json.loads(request.data.decode('utf-8'))
+			# TODO: DB 삽입 부 추가 구현
+			model.set_user((str(data['id'], '456', 4.1, "컴공", 4)
+			print(str(data['id']), len(str(data['id'])), str(data['pw']), len((data['pw'])))
 			crol_result = getStudentData(str(data['id']), str(data['pw']))
 			if crol_result:
 				ret['data'] = crol_result

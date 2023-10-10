@@ -15,5 +15,5 @@ class db_requester():
                 return json.loads(r.text)
 
 if __name__ == '__main__':
-    db = db_requester('http://138.2.126.137:3007')
-    print(db.request('/login', {'id':'2018E7088', 'pw':'sK35364478@'}))
+    db = db_requester('http://158.179.161.134:3007')
+    print(db.request('/login', {'id':'2019U1132', 'pw':'!@#atlantis771'}))
