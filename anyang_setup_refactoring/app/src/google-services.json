@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "372792095067",
-    "project_id": "anyang-setup",
-    "storage_bucket": "anyang-setup.appspot.com"
+    "project_number": "383227522204",
+    "project_id": "anyang-setup-28887",
+    "storage_bucket": "anyang-setup-28887.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:372792095067:android:6492c11722cbe5ef942a7e",
+        "mobilesdk_app_id": "1:383227522204:android:a8bfbebbeacd8434d71159",
         "android_client_info": {
           "package_name": "com.example.anyang_setup"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyC-_Cy1_L2lq7VGRRxHXT3LxxBszv2a8ro"
+          "current_key": "AIzaSyCAHq_Up7yCRYzRth35GzDeBzj827v0Y60"
         }
       ],
       "services": {
